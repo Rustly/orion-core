@@ -25,10 +25,10 @@ namespace Orion.Core.Packets.Npcs
     /// <summary>
     /// A packet sent to update NPC buffs.
     /// </summary>
-    [StructLayout(LayoutKind.Explicit, Size = 22)]
+    [StructLayout(LayoutKind.Explicit, Size = 82)]
     public struct NpcBuffs : IPacket
     {
-        private const int MaxNpcBuffs = 5;
+        private const int MaxNpcBuffs = 20;
 
         [FieldOffset(0)] private byte _bytes;
         [FieldOffset(8)] private SerializableNpcBuff[]? _buffs;
@@ -48,10 +48,15 @@ namespace Orion.Core.Packets.Npcs
         int IPacket.ReadBody(Span<byte> span, PacketContext context)
         {
             var length = span.Read(ref _bytes, 2);
-            for (var i = 0; i < Buffs.Length; ++i)
+
+            for (int i = 0; i < MaxNpcBuffs; i++)
             {
                 length += SerializableNpcBuff.Read(span[length..], out Buffs[i]);
             }
+            //for (var i = 0; i < Buffs.Length; ++i)
+            //{
+            //    length += SerializableNpcBuff.Read(span[length..], out Buffs[i]);
+            //}
 
             return length;
         }
@@ -59,7 +64,8 @@ namespace Orion.Core.Packets.Npcs
         int IPacket.WriteBody(Span<byte> span, PacketContext context)
         {
             var length = span.Write(ref _bytes, 2);
-            for (var i = 0; i < Buffs.Length; ++i)
+
+            for (var i = 0; i < MaxNpcBuffs; ++i)
             {
                 length += Buffs[i].Write(span[length..]);
             }

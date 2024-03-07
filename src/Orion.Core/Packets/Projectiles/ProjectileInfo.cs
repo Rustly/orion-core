@@ -103,7 +103,10 @@ namespace Orion.Core.Packets.Projectiles
             _flags = span.Read<Flags8>();
 
             if (_flags[2])
+            {
                 _flags2 = span.Read<Flags8>();
+                length++;
+            }
 
             if (_flags[0]) // replaced the for loop with this because the 3rd ai value is wrote at the end of the packet
             {

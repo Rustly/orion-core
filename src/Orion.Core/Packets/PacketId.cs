@@ -200,7 +200,7 @@ namespace Orion.Core.Packets
             [PacketId.PlayerActive] = typeof(PlayerActive),
             [PacketId.PlayerHealth] = typeof(PlayerHealth),
             [PacketId.TileModify] = typeof(TileModify),
-            [PacketId.TileSquare] = typeof(TileSquare),
+            //[PacketId.TileSquare] = typeof(TileSquare),
             [PacketId.WorldTime] = typeof(WorldTime),
             [PacketId.DoorToggle] = typeof(DoorToggle),
             [PacketId.ItemInfo] = typeof(ItemInfo),
